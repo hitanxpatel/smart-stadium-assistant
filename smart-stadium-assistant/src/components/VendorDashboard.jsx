@@ -39,8 +39,8 @@ const INITIAL_ORDERS = [
 const VendorDashboard = ({ orders, updateOrderStatus, addToast }) => {
   const [stallStatus, setStallStatus] = useState('open');
   const [localOrders, setLocalOrders] = useState(INITIAL_ORDERS);
-  const [revenue, setRevenue] = useState(1250);
-  const [totalCount, setTotalCount] = useState(42);
+  const [revenue, setRevenue] = useState(1847.50);
+  const [totalCount, setTotalCount] = useState(87);
 
   // Merge global orders (from real users) with local mock orders
   const allOrders = [...orders, ...localOrders];
