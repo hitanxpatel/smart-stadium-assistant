@@ -1,15 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Map, Filter } from 'lucide-react';
 import { FACILITIES } from '../utils/dummyData';
 
 const NearbyFacilities = () => {
   const [filter, setFilter] = useState('All');
+  const [facilities, setFacilities] = useState(FACILITIES);
 
-  const types = ['All', ...new Set(FACILITIES.map(f => f.type))];
+  useEffect(() => {
+    const statuses = ['Clear', 'Available', 'Busy', 'Full'];
+    const interval = setInterval(() => {
+      setFacilities(prev => prev.map(facility => ({
+        ...facility,
+        status: statuses[Math.floor(Math.random() * statuses.length)]
+      })));
+    }, 6000); // randomize every 6 seconds
+    return () => clearInterval(interval);
+  }, []);
+
+  const types = ['All', ...new Set(facilities.map(f => f.type))];
 
   const filteredFacilities = filter === 'All' 
-    ? FACILITIES 
-    : FACILITIES.filter(f => f.type === filter);
+    ? facilities 
+    : facilities.filter(f => f.type === filter);
 
   return (
     <div className="bg-card text-card-foreground rounded-2xl shadow-sm border p-6 h-full flex flex-col">
